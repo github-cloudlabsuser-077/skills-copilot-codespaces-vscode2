@@ -1,0 +1,58 @@
+# Create a GitHub action to email a report from a file at 6 a.m. daily
+# This action will use a GitHub action to send an email from a file using a scheduled event to trigger the action.
+# The action will use a third-party SMTP service to send the email.
+# The action will use a file in the repository to provide the email content.
+# The email will be sent at 6 a.m. UTC every day.
+# The file that contains the email content is in the root of the repository and is called report.txt.
+# The action will use a secret called SMTP_USERNAME to authenticate with the SMTP service.
+# The action will use a secret called SMTP_PASSWORD to authenticate with the SMTP service.
+# The action will use a secret called SMTP_SERVER to specify the address of the SMTP server.
+# The action will use a secret called SMTP_PORT to specify the port of the SMTP server.
+# The action will use a secret called EMAIL_TO to specify the recipient of the email.
+# The action will use a secret called EMAIL_FROM to specify the sender of the email.
+
+name: Email report
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  email_report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Email report
+        uses: xxxxxxxxxxxxxxxxxxxxxxxx@xx
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: The daily report
+          body: ${{ secrets.EMAIL_TO }}
+          from: ${{ secrets.EMAIL_FROM }}
+          to: ${{ secrets.EMAIL_TO }}
+          content_type: text/plain
+          attachments: |
+            report.txt
+```
+
+#### 7. Create a GitHub action to deploy the app
+
+```yml
+# Path: deploy-app.yml
+# Create a GitHub action to deploy the app
+# This action will use a script to deploy the app to a server.
+# The action will use a secret called DEPLOY_SERVER to specify the address of the server.
+# The action will use a secret called DEPLOY_USERNAME to authenticate with the server.
+# The action will use a secret called DEPLOY_PASSWORD to authenticate with the server.
+# The action will use a secret called DEPLOY_PATH to specify the directory where the app should be deployed.
+
+name: Deploy app
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
